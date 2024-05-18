@@ -18,7 +18,7 @@ file = st.file_uploader("Choose an image from your computer", type=["jpg", "png"
 
 def import_and_predict(image_data, model):
     size = (32, 32)  # CIFAR-10 images are 32x32
-    image = ImageOps.fit(image_data, size, Image.ANTIALIAS)
+    image = ImageOps.fit(image_data, size, Image.Resampling.LANCZOS)  # Use LANCZOS instead of ANTIALIAS
     img = np.asarray(image)
     img = img / 255.0  # Normalize the image to match the model's training data
     img_reshape = img[np.newaxis, ...]  # Add batch dimension
@@ -37,3 +37,4 @@ else:
     
     string = "OUTPUT : " + class_names[np.argmax(prediction)]
     st.success(string)
+
